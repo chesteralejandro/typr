@@ -2,6 +2,14 @@
 
 > A lightweight, reusable typewriter animation script built with modern, dependency-free vanilla JavaScript.
 
+## 🌏 Landing Page
+
+[https://chesteralejandro.github.io/poc-typewriter-effect](https://chesteralejandro.github.io/poc-typewriter-effect)
+
+## 📦 Source Code
+
+[https://github.com/chesteralejandro/poc-typewriter-effect](https://github.com/chesteralejandro/poc-typewriter-effect)
+
 ## ✨ Features
 
 - Pure JavaScript (no dependencies).
