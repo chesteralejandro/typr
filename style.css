@@ -1,0 +1,44 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font:
+		clamp(0.7rem, 2.5vw, 2.5rem) normal Tahoma,
+		Geneva,
+		sans-serif;
+	background-color: hsl(195, 53%, 79%);
+	height: 100vh;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.container {
+	width: 90%;
+	margin-inline: auto;
+	margin-top: -5%;
+}
+
+.cursor {
+	color: hsl(16, 100%, 66%);
+}
+
+.cursor::after {
+	content: '|';
+	color: hsl(0, 0%, 7%);
+	font-weight: lighter;
+	display: inline-block;
+	transform: translateY(-10%);
+	animation: blink 500ms infinite;
+}
+@keyframes blink {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
