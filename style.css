@@ -22,23 +22,6 @@ body {
 	margin-top: -5%;
 }
 
-.cursor {
-	color: hsl(16, 100%, 66%);
-}
-
-.cursor::after {
-	content: '|';
-	color: hsl(0, 0%, 7%);
-	font-weight: lighter;
-	display: inline-block;
-	transform: translateY(-10%);
-	animation: blink 500ms infinite;
-}
-@keyframes blink {
-	from {
-		opacity: 1;
-	}
-	to {
-		opacity: 0;
-	}
+.typewriter1 {
+	color: coral;
 }
