@@ -3,19 +3,147 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Typewriter Effect Library</title>
 		<link rel="stylesheet" href="style.css" />
-		<title>Typewriter Effect</title>
 	</head>
 	<body>
-		<main class="container">
-			<h1>I am an aspiring <span class="typewriter1">&nbsp;</span></h1>
-		</main>
+		<canvas id="particles"></canvas>
 
+		<!-- HERO -->
+		<section class="hero">
+			<article class="container reveal">
+				<h1>Typewriter Effect <span class="accent">Library</span></h1>
+				<p>
+					A lightweight, dependency-free JavaScript library for
+					creating smooth, customizable typewriter animations using
+					simple <code>data-*</code> attributes.
+				</p>
+
+				<a href="#usage" class="btn btn-primary">Get Started</a>
+				<a
+					href="https://github.com/chesteralejandro/poc-typewriter-effect"
+					class="btn btn-outline"
+					target="_blank"
+					>GitHub</a
+				>
+
+				<footer class="hero-demo">
+					I am a <span class="hero-typewriter"></span>
+				</footer>
+			</article>
+		</section>
+
+		<!-- USAGE -->
+		<section id="usage">
+			<div class="container">
+				<h2 class="reveal">Quick Start</h2>
+
+				<article class="card reveal">
+					<h3>1️⃣ Add the Target Element</h3>
+
+					<footer class="code-block">
+						<button class="copy-btn">Copy</button>
+						<pre><code>&lt;span class="typewriter1"&gt;&lt;/span&gt;</code></pre>
+					</foot>
+				</article>
+
+				<section class="card reveal">
+					<h3>2️⃣ Include the Script</h3>
+
+					<article class="code-block">
+						<button class="copy-btn">Copy</button>
+						<pre><code>&lt;script
+       defer
+       src="https://chesteralejandro.github.io/poc-typewriter-effect/typewriter.js"
+       data-class="typewriter1"
+       data-word-list='["Web Developer.", "Designer.", "Coder."]'
+&gt;&lt;/script&gt;</code></pre>
+					</article>
+
+					<article class="warning">
+						⚠️ IMPORTANT: The element's <strong>class</strong> value
+						MUST be exactly the same as the script's
+						<strong>data-class</strong> value.
+					</article>
+
+					<article class="attributes-table">
+						<h4>Attribute Explanation</h4>
+						<table>
+							<thead>
+								<tr>
+									<th>Attribute</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><code>src</code></td>
+									<td>URL of the library file.</td>
+								</tr>
+								<tr>
+									<td><code>defer</code></td>
+									<td>
+										Ensures the script runs after HTML
+										parsing.
+									</td>
+								</tr>
+								<tr>
+									<td><code>data-class</code></td>
+									<td>
+										The class of the element to animate.
+										Must match the element’s
+										<code>class</code> value exactly.
+									</td>
+								</tr>
+								<tr>
+									<td><code>data-word-list</code></td>
+									<td>JSON array of phrases to type.</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>
+				</section>
+			</div>
+		</section>
+
+		<!-- GITHUB CTA -->
+		<section class="github-section">
+			<div class="container">
+				<article class="github-box reveal">
+					<h2>Open Source & Ready to Use</h2>
+					<p>
+						If you find this library useful, consider starring the
+						repository and contributing to its development.
+					</p>
+
+					<a
+						href="https://github.com/chesteralejandro/poc-typewriter-effect"
+						target="_blank"
+						class="github-btn"
+					>
+						⭐ Star on GitHub
+					</a>
+				</article>
+			</div>
+		</section>
+
+		<!-- FOOTER -->
+		<div class="footer">
+			<p>
+				Lightweight • Dependency-Free • Vanilla JavaScript • Open Source
+			</p>
+			<p style="margin-top: 5px">
+				Crafted by <strong>Chester</strong> © <span id="year"></span>
+			</p>
+		</div>
+
+		<script src="/script.js"></script>
+		<!-- Hero Demo -->
 		<script
 			defer
-			src="typewriter.js"
-			data-class="typewriter1"
-			data-word-list='["Web Developer.", "Designer.", "Coder."]'
+			src="https://chesteralejandro.github.io/poc-typewriter-effect/typewriter.js"
+			data-class="hero-typewriter"
+			data-word-list='["Developer.", "Designer.", "Creator."]'
 		></script>
 	</body>
 </html>
