@@ -1,91 +1,109 @@
+// Typr v1 - Simple declarative typewriter effect
+// Initializes automatically on DOM load
+
 (function () {
-	const script = document.currentScript;
-	if (!script) return;
-
-	const classSelector = script.dataset.class;
-
-	const element = document.querySelector(`.${classSelector}`);
-	const wordList = JSON.parse(script.dataset.wordList) || [];
-
-	if (!element || !wordList.length) return;
+	const targetElements = document.querySelectorAll('[data-typr]');
+	let styleElement = document.getElementById('typr-style');
 
 	// Inject styles only once
-	if (!document.getElementById('typewriter-style')) {
-		const style = document.createElement('style');
+	if (!styleElement) {
+		styleElement = document.createElement('style');
+		styleElement.id = 'typr-style';
+		styleElement.textContent = `@keyframes typr-blink-cursor { from { opacity: 1; } to { opacity: 0; }}`;
 
-		style.id = 'typewriter-style';
-		style.textContent = `
-			.cursor::after {
-				content: "|";
-				color: hsl(0, 0%, 7%);
-				font-weight: lighter;
-				display: inline-block;
-				transform: translateY(-10%);
-				animation: blink-cursor 500ms infinite;
-			}
-			@keyframes blink-cursor {
-				from { opacity: 1; }
-				to { opacity: 0; }
-			}
-		`;
-
-		document.head.appendChild(style);
+		document.head.appendChild(styleElement);
 	}
 
-	element.classList.add('cursor');
-
-	let wordIndex = 0;
-	let charIndex = 0;
-	let isTyping = true;
-
-	function typeCharacter() {
-		charIndex = charIndex + 1;
+	function addClassStyle(elementClass, cursor, cursorColor) {
+		const safeCursor = cursor.replace(/"/g, '\\"');
+		const sheet = styleElement.sheet;
+		sheet.insertRule(`
+		.${elementClass}::after {
+			content: "${safeCursor}";
+			color: ${cursorColor};
+			font-weight: lighter;
+			display: inline-block;
+			transform: translateY(-10%);
+			animation: typr-blink-cursor 500ms infinite;
+		}`);
 	}
 
-	function deleteCharacter() {
-		charIndex = charIndex - 1;
-	}
-
-	function getUpdatedText(text) {
+	function getUpdatedText(text, charIndex) {
 		return text.slice(0, charIndex);
 	}
 
-	function updateElementText(newText) {
-		element.textContent = newText;
-	}
+	const WORD_SEPARATOR = '|';
 
-	function changeWord() {
-		wordIndex = (wordIndex + 1) % wordList.length;
-	}
+	targetElements.forEach((targetElement, index) => {
+		const { typr, typrColor = 'hsl(0, 0%, 7%)' } = targetElement.dataset;
+		const typeSpeed = Number(targetElement.dataset.typeSpeed) || 100;
+		const wordDelay = Number(targetElement.dataset.wordDelay) || 500;
+		const pauseDelay = Number(targetElement.dataset.pauseDelay) || 2000;
 
-	function type() {
-		const currentWord = wordList[wordIndex];
+		const state = {
+			wordIndex: 0,
+			charIndex: 0,
+			canType: true,
+			isTyping: true,
+		};
+		const elementClass = `typr${index}-cursor`;
+		let timeoutId;
 
-		if (isTyping) {
-			typeCharacter();
-		} else {
-			deleteCharacter();
+		addClassStyle(elementClass, typr || WORD_SEPARATOR, typrColor);
+		targetElement.classList.add(elementClass);
+		targetElement.addEventListener('mouseenter', () => {
+			clearTimeout(timeoutId);
+			state.canType = false;
+		});
+		targetElement.addEventListener('mouseleave', () => {
+			clearTimeout(timeoutId);
+			state.canType = true;
+			type();
+		});
+
+		const originalText = targetElement.textContent;
+		const wordList = originalText
+			.split(WORD_SEPARATOR)
+			.map((w) => w.trim())
+			.filter(Boolean);
+
+		if (!wordList.length) return;
+
+		function type() {
+			if (!state.canType) return;
+
+			const currentWord = wordList[state.wordIndex];
+
+			if (state.isTyping) {
+				state.charIndex++;
+			} else {
+				state.charIndex--;
+			}
+
+			const updatedText = getUpdatedText(currentWord, state.charIndex);
+
+			targetElement.textContent = updatedText;
+
+			const wordIsFullyTyped = state.charIndex === currentWord.length;
+			const wordIsFullyDeleted = state.charIndex === 0;
+
+			let speed = typeSpeed;
+
+			if (wordList.length === 1 && wordIsFullyTyped) {
+				return;
+			} else if (state.isTyping && wordIsFullyTyped) {
+				speed = pauseDelay;
+				state.isTyping = false;
+			} else if (!state.isTyping && wordIsFullyDeleted) {
+				speed = wordDelay;
+				state.isTyping = true;
+
+				state.wordIndex = (state.wordIndex + 1) % wordList.length;
+			}
+
+			timeoutId = setTimeout(type, speed);
 		}
 
-		const updatedText = getUpdatedText(currentWord);
-
-		updateElementText(updatedText);
-
-		let delay = 100;
-		const wordIsFullyTyped = charIndex === currentWord.length;
-		const wordIsFullyDeleted = charIndex === 0;
-
-		if (isTyping && wordIsFullyTyped) {
-			delay = 2000;
-			isTyping = false;
-		} else if (!isTyping && wordIsFullyDeleted) {
-			delay = 500;
-			isTyping = true;
-			changeWord();
-		}
-
-		setTimeout(type, delay);
-	}
-
-	type();
+		type();
+	});
 })();
