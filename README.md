@@ -1,75 +1,119 @@
-# Typewriter Effect Library
+# Typr ![Status](https://img.shields.io/badge/status-active-brightgreen)
 
-> A lightweight, reusable typewriter animation script built with modern, dependency-free vanilla JavaScript.
+A lightweight, dependency-free typewriter animation library built with modern vanilla JavaScript.
 
-## 🌏 Landing Page
+Typr allows you to create animated typing effects using simple declarative `data-*` attributes — no configuration scripts required.
 
-[https://chesteralejandro.github.io/poc-typewriter-effect](https://chesteralejandro.github.io/poc-typewriter-effect)
+## 🌏 Demo Landing Page
 
-## 📦 Source Code
-
-[https://github.com/chesteralejandro/poc-typewriter-effect](https://github.com/chesteralejandro/poc-typewriter-effect)
+[https://chesteralejandro.github.io/typr](https://chesteralejandro.github.io/typr)
 
 ## ✨ Features
 
-- Pure JavaScript (no dependencies).
-- Fully scoped using an IIFE (no global variable pollution).
-- Configurable via `data-*` attributes.
-- Uses `document.currentScript` to read configuration.
-- Dynamically injects cursor blinking styles.
-- Loops through multiple words.
-- Clean and modular function structure for readability.
+- Zero dependencies
+- Fully scoped (IIFE – no global pollution)
+- Declarative HTML API (`data-*` attributes)
+- Custom cursor symbol
+- Custom cursor color
+- Adjustable typing speed
+- Adjustable word delay
+- Adjustable pause delay
+- Optional cursor blinking toggle
+- Pause on hover support
+- Automatically initializes on DOM load
+- Lightweight and CDN-friendly
 
-## 📂 Project Structure
+## 📦 Installation (CDN)
 
-```
-├── index.html
-├── style.css
-├── typewriter.js
-└── README.md
-```
-
-## 🛠️ Example Setup
+### jsDelivr (Recommended)
 
 ```html
-<h1>I am an aspiring <span class="your-custom-class">&nbsp;</span></h1>
-
 <script
 	defer
-	src="https://chesteralejandro.github.io/poc-typewriter-effect/typewriter.js"
-	data-class="your-custom-class"
-	data-word-list='["Web Developer.", "Designer.", "Coder."]'
+	src="https://cdn.jsdelivr.net/gh/chesteralejandro/typr@latest/dist/typr.js"
 ></script>
+```
+
+## 🛠️ Basic Usage
+
+### Important Notes
+
+- Phrases must be pipe-separated:
+
+```html
+<h1>I am a <span data-typr>Web Developer|Designer|Coder</span></h1>
 ```
 
 ## ⚙️ Configuration Options
 
-### Span Tag
+Typr is configured using attributes directly on the element.
 
-| Attribute | Type   | Required | Description                                |
-| --------- | ------ | -------- | ------------------------------------------ |
-| class     | String | ✅ Yes   | Class name of the span element to animate. |
+| Attribute          | Required | Default        | Description                                      |
+| ------------------ | -------- | -------------- | ------------------------------------------------ |
+| `data-typr`        | ✅ Yes   | \|             | Optional value sets the cursor symbol            |
+| `data-typr-color`  | ❌ No    | hsl(0, 0%, 7%) | Cursor color. Accepts any valid CSS color value. |
+| `data-typr-speed`  | ❌ No    | 100            | Typing speed per character (ms).                 |
+| `data-word-delay`  | ❌ No    | 500            | Delay between words (ms).                        |
+| `data-pause-delay` | ❌ No    | 2000           | Pause after fully typing before deleting (ms).   |
+| `data-typr-blink`  | ❌ No    | on             | Toggle cursor blinking (on or off).              |
 
-### Script Tag
+### `data-typr` Behavior
 
-| Attribute      | Type       | Required | Description                             |
-| -------------- | ---------- | -------- | --------------------------------------- |
-| src            | String     | ✅ Yes   | Location of the JavaScript source code. |
-| data-class     | String     | ✅ Yes   | Class name provided to the element.     |
-| data-word-list | JSON Array | ✅ Yes   | Words or phrases to type.               |
+The attribute is required to activate the animation.
 
-⚠️ **Important Configuration Rule:** The value of the script's `data-class` must match exactly the `class` of the element.
+It can be used:
 
-## 💡 What I Learned
+- Without a value (uses default cursor `|`):
 
-- It is possible to pass value to the script tag via `data-*` attribute.
-- You can refer to the containing script tag via `document.currentScript`.
-- You can create a `style` tag and append it to the `head` tag.
-- You can dynamically write string of styles for a style tag and assign it to `style.textContent`.
-- I realized that the **script** tag and **style** tag are also HTML elements and you can also access them by `document.getQuerySelector`, `document.getElementById`, etc.
+    ```html
+    <span data-typr> Web Developer|Designer|Coder </span>
+    ```
 
-## 🎯 Possible Enhancements
+- With a custom cursor symbol:
 
-- Configurable typing speed (data-typing-speed).
-- Add pause-on-hover feature.
-- Conversion to a Web Component version.
+    ```html
+    <span data-typr="_"> Web Developer|Designer|Coder </span>
+
+    <span data-typr="✏️"> Web Developer|Designer|Coder </span>
+    ```
+
+## 📂 Project Structure
+
+```
+typr/
+├── dist/
+│   ├── typr.js
+│   └── typr.min.js
+├── docs/
+│   ├── index.html
+│   ├── style.css
+│   ├── script.js
+│   └── favicon.png
+├── src/
+│   └── typr.js
+├── LICENSE
+├── README.md
+└── CHANGELOG.md
+```
+
+## 🤔 Why Typr?
+
+Most typewriter libraries require:
+
+- Manual JavaScript initialization
+- Complex configuration objects
+- Extra dependencies
+- Global variables
+
+Typr takes a different approach.
+
+It is:
+
+- Declarative (configured directly in HTML)
+- Dependency-free
+- Automatically initialized
+- Minimal and focused
+- CDN-friendly
+- Designed for simple integration into static sites and modern frontend projects
+
+If you want a clean typewriter effect without introducing framework overhead or complex setup — Typr is built for that use case.
