@@ -25,8 +25,8 @@
 			color: ${cursorColor};
 			font-weight: lighter;
 			display: inline-block;
-			transform: translateY(-10%);
-			${willBlink ? '' : 'animation: typr-blink-cursor 500ms infinite;'}
+			transform: translateY(-5%);
+			${willBlink ? '' : 'animation: typr-blink-cursor 750ms infinite;'}
 		}`);
 	}
 
@@ -42,7 +42,7 @@
 			typrColor = 'hsl(0, 0%, 7%)',
 			typrBlink = 'on',
 		} = targetElement.dataset;
-		const typeSpeed = Number(targetElement.dataset.typeSpeed) || 100;
+		const typrSpeed = Number(targetElement.dataset.typrSpeed) || 100;
 		const wordDelay = Number(targetElement.dataset.wordDelay) || 500;
 		const pauseDelay = Number(targetElement.dataset.pauseDelay) || 2000;
 
@@ -98,7 +98,7 @@
 			const wordIsFullyTyped = state.charIndex === currentWord.length;
 			const wordIsFullyDeleted = state.charIndex === 0;
 
-			let speed = typeSpeed;
+			let speed = typrSpeed;
 
 			if (wordList.length === 1 && wordIsFullyTyped) {
 				return;
