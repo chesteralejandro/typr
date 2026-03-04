@@ -1,5 +1,11 @@
-// Typr v1 - Simple declarative typewriter effect
-// Initializes automatically on DOM load
+/*!
+ * Typr.js v1.0.0
+ * A lightweight typewriter effect library for the browser.
+ *
+ * © 2026 Chester
+ * Released under the MIT License.
+ * https://github.com/chesteralejandro/typr
+ */
 
 (function () {
 	const targetElements = document.querySelectorAll('[data-typr]');
