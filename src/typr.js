@@ -14,7 +14,9 @@
 		document.head.appendChild(styleElement);
 	}
 
-	function addClassStyle(elementClass, cursor, cursorColor) {
+	function addClassStyle(elementClass, cursor, cursorColor, typrBlink) {
+		const typrBlinkKeyword = 'off';
+		const willBlink = typrBlinkKeyword === typrBlink.toLowerCase().trim();
 		const safeCursor = cursor.replace(/"/g, '\\"');
 		const sheet = styleElement.sheet;
 		sheet.insertRule(`
@@ -24,7 +26,7 @@
 			font-weight: lighter;
 			display: inline-block;
 			transform: translateY(-10%);
-			animation: typr-blink-cursor 500ms infinite;
+			${willBlink ? '' : 'animation: typr-blink-cursor 500ms infinite;'}
 		}`);
 	}
 
@@ -35,7 +37,11 @@
 	const WORD_SEPARATOR = '|';
 
 	targetElements.forEach((targetElement, index) => {
-		const { typr, typrColor = 'hsl(0, 0%, 7%)' } = targetElement.dataset;
+		const {
+			typr,
+			typrColor = 'hsl(0, 0%, 7%)',
+			typrBlink = 'on',
+		} = targetElement.dataset;
 		const typeSpeed = Number(targetElement.dataset.typeSpeed) || 100;
 		const wordDelay = Number(targetElement.dataset.wordDelay) || 500;
 		const pauseDelay = Number(targetElement.dataset.pauseDelay) || 2000;
@@ -49,7 +55,12 @@
 		const elementClass = `typr${index}-cursor`;
 		let timeoutId;
 
-		addClassStyle(elementClass, typr || WORD_SEPARATOR, typrColor);
+		addClassStyle(
+			elementClass,
+			typr || WORD_SEPARATOR,
+			typrColor,
+			typrBlink,
+		);
 		targetElement.classList.add(elementClass);
 		targetElement.addEventListener('mouseenter', () => {
 			clearTimeout(timeoutId);
