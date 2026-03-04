@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Typewriter Effect Library</title>
+		<title>Typr.js - Typewriter Effect</title>
+		<link rel="icon" type="image/png" href="./favicon.png" />
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
@@ -12,23 +13,26 @@
 		<!-- HERO -->
 		<section class="hero">
 			<article class="container reveal">
-				<h1>Typewriter Effect <span class="accent">Library</span></h1>
+				<h1>Typr.js <span class="accent">Library</span></h1>
 				<p>
-					A lightweight, dependency-free JavaScript library for
-					creating smooth, customizable typewriter animations using
-					simple <code>data-*</code> attributes.
+					A lightweight, declarative JavaScript library for smooth,
+					customizable typewriter effects using a single required
+					attribute.
 				</p>
 
 				<a href="#usage" class="btn btn-primary">Get Started</a>
 				<a
-					href="https://github.com/chesteralejandro/poc-typewriter-effect"
+					href="https://github.com/chesteralejandro/typr"
 					class="btn btn-outline"
 					target="_blank"
 					>GitHub</a
 				>
 
 				<footer class="hero-demo">
-					I am a <span class="hero-typewriter"></span>
+					I am a
+					<span data-typr data-typr-color="#f1f5f9">
+						Web Developer|Designer|Creator
+					</span>
 				</footer>
 			</article>
 		</section>
@@ -38,66 +42,108 @@
 			<div class="container">
 				<h2 class="reveal">Quick Start</h2>
 
+				<!-- STEP 1 -->
 				<article class="card reveal">
 					<h3>1️⃣ Add the Target Element</h3>
 
 					<footer class="code-block">
 						<button class="copy-btn">Copy</button>
-						<pre><code>&lt;span class="typewriter1"&gt;&lt;/span&gt;</code></pre>
-					</foot>
+						<pre><code>&lt;span data-typr&gt;
+	Web Developer|Designer|Coder
+&lt;/span&gt;</code></pre>
+					</footer>
+
+					<p style="margin-top: 20px">
+						The pipe-separated phrases are placed inside the
+						element.
+					</p>
 				</article>
 
+				<!-- STEP 2 -->
 				<section class="card reveal">
 					<h3>2️⃣ Include the Script</h3>
 
 					<article class="code-block">
 						<button class="copy-btn">Copy</button>
-						<pre><code>&lt;script
-       defer
-       src="https://chesteralejandro.github.io/poc-typewriter-effect/typewriter.js"
-       data-class="typewriter1"
-       data-word-list='["Web Developer.", "Designer.", "Coder."]'
-&gt;&lt;/script&gt;</code></pre>
+						<pre><code>&lt;script defer src="typr.js"&gt;&lt;/script&gt;</code></pre>
 					</article>
 
-					<article class="warning">
-						⚠️ IMPORTANT: The element's <strong>class</strong> value
-						MUST be exactly the same as the script's
-						<strong>data-class</strong> value.
-					</article>
-
+					<!-- ATTRIBUTE TABLE -->
 					<article class="attributes-table">
-						<h4>Attribute Explanation</h4>
+						<h4>Attribute Reference</h4>
+
 						<table>
 							<thead>
 								<tr>
 									<th>Attribute</th>
 									<th>Description</th>
+									<th>Default Value</th>
+									<th>Sample</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td><code>src</code></td>
-									<td>URL of the library file.</td>
-								</tr>
-								<tr>
-									<td><code>defer</code></td>
+									<td><code>data-typr</code></td>
 									<td>
-										Ensures the script runs after HTML
-										parsing.
+										Required attribute to activate the
+										animation.
+										<br /><br />
+										• The element's inner content contains
+										the pipe-separated phrases.
+										<br />
+										• Optional value sets the cursor symbol.
+									</td>
+									<td><code>|</code></td>
+									<td>
+										<code>data-typr="_"</code><br />
+										<code>data-typr="✏️"</code>
 									</td>
 								</tr>
+
 								<tr>
-									<td><code>data-class</code></td>
+									<td><code>data-typr-color</code></td>
 									<td>
-										The class of the element to animate.
-										Must match the element’s
-										<code>class</code> value exactly.
+										Optional cursor color. Accepts any valid
+										CSS color value.
+									</td>
+									<td><code>hsl(0, 0%, 7%)</code></td>
+									<td>
+										<code>data-typr-color="red"</code><br />
+										<code>data-typr-color="#6366f1"</code>
 									</td>
 								</tr>
+
 								<tr>
-									<td><code>data-word-list</code></td>
-									<td>JSON array of phrases to type.</td>
+									<td><code>data-type-speed</code></td>
+									<td>
+										Typing speed per character
+										(milliseconds).
+									</td>
+									<td><code>100</code> ms</td>
+									<td>
+										<code>data-type-speed="50"</code>
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>data-word-delay</code></td>
+									<td>Delay between words (milliseconds).</td>
+									<td><code>500</code> ms</td>
+									<td>
+										<code>data-word-delay="800"</code>
+									</td>
+								</tr>
+
+								<tr>
+									<td><code>data-pause-delay</code></td>
+									<td>
+										Pause after fully typing before deleting
+										(milliseconds).
+									</td>
+									<td><code>2000</code> ms</td>
+									<td>
+										<code>data-pause-delay="3000"</code>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -117,7 +163,7 @@
 					</p>
 
 					<a
-						href="https://github.com/chesteralejandro/poc-typewriter-effect"
+						href="https://github.com/chesteralejandro/typr"
 						target="_blank"
 						class="github-btn"
 					>
@@ -138,12 +184,6 @@
 		</div>
 
 		<script src="script.js"></script>
-		<!-- Hero Demo -->
-		<script
-			defer
-			src="https://chesteralejandro.github.io/poc-typewriter-effect/typewriter.js"
-			data-class="hero-typewriter"
-			data-word-list='["Developer.", "Designer.", "Creator."]'
-		></script>
+		<script defer src="../src/typr.js"></script>
 	</body>
 </html>
