@@ -1,0 +1,24 @@
+{
+	"name": "typr",
+	"version": "1.0.0",
+	"description": "A lightweight, dependency-free declarative typewriter animation library.",
+	"main": "dist/typr.js",
+	"unpkg": "dist/typr.min.js",
+	"jsdelivr": "dist/typr.min.js",
+	"files": [
+		"dist"
+	],
+	"keywords": [
+		"typewriter",
+		"animation",
+		"vanilla-js",
+		"text-effect",
+		"frontend"
+	],
+	"author": "Chester Alejandro",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/chesteralejandro/typr.git"
+	}
+}
