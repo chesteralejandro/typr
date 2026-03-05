@@ -1,5 +1,5 @@
 {
-	"name": "typr",
+	"name": "@chesteralejandro/typr",
 	"version": "1.0.0",
 	"description": "A lightweight, dependency-free declarative typewriter animation library.",
 	"main": "dist/typr.js",
