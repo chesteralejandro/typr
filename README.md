@@ -1,81 +1,123 @@
-# Typr ![Status](https://img.shields.io/badge/status-active-brightgreen)
+# Typr ![Status](https://img.shields.io/badge/status-stable-blue) ![npm](https://img.shields.io/npm/v/@chesteralejandro/typr) ![license](https://img.shields.io/npm/l/@chesteralejandro/typr)
 
-A lightweight, dependency-free typewriter animation library built with modern vanilla JavaScript.
+> A lightweight, declarative typewriter animation library built with **vanilla JavaScript**. No dependencies, no setup — just add attributes to your HTML.
 
-Typr allows you to create animated typing effects using simple declarative `data-*` attributes — no configuration scripts required.
-
-## 🌏 Demo Landing Page
+## 🌏 Landing Page
 
 [https://chesteralejandro.github.io/typr](https://chesteralejandro.github.io/typr)
 
-## ✨ Features
+## 📦 Installation
 
-- Zero dependencies
-- Fully scoped (IIFE – no global pollution)
-- Declarative HTML API (`data-*` attributes)
-- Custom cursor symbol
-- Custom cursor color
-- Adjustable typing speed
-- Adjustable word delay
-- Adjustable pause delay
-- Optional cursor blinking toggle
-- Pause on hover support
-- Automatically initializes on DOM load
-- Lightweight and CDN-friendly
+**CDN (Recommended)**
 
-## 📦 Installation (CDN)
-
-### jsDelivr (Recommended)
+Latest version
 
 ```html
 <script
 	defer
-	src="https://cdn.jsdelivr.net/gh/chesteralejandro/typr@latest/dist/typr.js"
+	src="https://cdn.jsdelivr.net/npm/@chesteralejandro/typr/dist/typr.min.js"
 ></script>
 ```
 
-## 🛠️ Basic Usage
+Stable Version
 
-### Important Notes
+```html
+<script
+	defer
+	src="https://cdn.jsdelivr.net/npm/@chesteralejandro/typr@1.0.0/dist/typr.min.js"
+></script>
+```
 
-- Phrases must be pipe-separated:
+**NPM**
+
+```bash
+npm install @chesteralejandro/typr
+```
+
+## ❓ Why Typr?
+
+- **Declarative** — configure entirely with HTML attributes; no extra JavaScript code required.
+- **Lightweight** — ~5 KB, minimal footprint for your projects.
+- **Reusable** — works on any HTML element with `data-typr`.
+- **Customizable** — cursor symbol, typing speed, pauses, blinking, and more.
+- **Production-ready** — npm package + CDN support.
+
+## ✨ Features
+
+- Pure vanilla JavaScript.
+- Scoped using an IIFE (no global variable pollution).
+- Fully configurable with `data-*` attributes.
+- Dynamically injects cursor styles.
+- Supports pause-on-hover.
+- Loops through multiple phrases separated by `|`.
+
+## 🛠️ Example Setup
 
 ```html
 <h1>I am a <span data-typr>Web Developer|Designer|Coder</span></h1>
 ```
 
-## ⚙️ Configuration Options
+Optional cursor symbol
 
-Typr is configured using attributes directly on the element.
+```html
+<h1>I am a <span data-typr="_">Web Developer|Designer|Coder</span></h1>
+```
 
-| Attribute          | Required | Default        | Description                                      |
-| ------------------ | -------- | -------------- | ------------------------------------------------ |
-| `data-typr`        | ✅ Yes   | \|             | Optional value sets the cursor symbol            |
-| `data-typr-color`  | ❌ No    | hsl(0, 0%, 7%) | Cursor color. Accepts any valid CSS color value. |
-| `data-typr-speed`  | ❌ No    | 100            | Typing speed per character (ms).                 |
-| `data-word-delay`  | ❌ No    | 500            | Delay between words (ms).                        |
-| `data-pause-delay` | ❌ No    | 2000           | Pause after fully typing before deleting (ms).   |
-| `data-typr-blink`  | ❌ No    | on             | Toggle cursor blinking (on or off).              |
+## ⚙️ Attributes
 
-### `data-typr` Behavior
+<table>
+    <tr>
+        <th>Attribute</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Example</th>
+    </tr>
+    <tr>
+        <td>data-typr</td>
+        <td>
+            <b>Required</b>. Activates the typewriter animation.<br/> 
+            Optional value sets cursor symbol.
+        </td>
+        <td>|</td>
+        <td>data-typr <br /> data-typr="_"</td>
+    </tr>
+    <tr>
+        <td>data-typr-color</td>
+        <td>Cursor color. Accepts any valid CSS color.</td>
+        <td>hsl(0,0%,7%)</td>
+        <td>data-typr-color="red"</td>
+    </tr>
+    <tr>
+        <td>data-typr-blink</td>
+        <td>Turns cursor blinking on/off.</td>
+        <td>on</td>
+        <td>data-typr-blink="off"</td>
+    </tr>
+    <tr>
+        <td>data-typr-speed</td>
+        <td>Typing speed per character in milliseconds.</td>
+        <td>100</td>
+        <td>data-typr-speed="50"</td>
+    </tr>
+    <tr>
+        <td>data-word-delay</td>
+        <td>Delay between words in milliseconds.</td>
+        <td>500</td>
+        <td>data-word-delay="800"</td>
+    </tr>
+    <tr>
+        <td>data-pause-delay</td>
+        <td>Delay after typing before deleting in milliseconds.</td>
+        <td>2000</td>
+        <td>data-pause-delay="3000"</td>
+    </tr>
+    
+</table>
 
-The attribute is required to activate the animation.
+## 💡 Notes
 
-It can be used:
-
-- Without a value (uses default cursor `|`):
-
-    ```html
-    <span data-typr> Web Developer|Designer|Coder </span>
-    ```
-
-- With a custom cursor symbol:
-
-    ```html
-    <span data-typr="_"> Web Developer|Designer|Coder </span>
-
-    <span data-typr="✏️"> Web Developer|Designer|Coder </span>
-    ```
+- The element's inner content **must contain pipe-separated phrases:** `Web Developer | Designer | Coder`.
+- Hovering over the element **pauses the animation** automatically.
 
 ## 📂 Project Structure
 
@@ -95,25 +137,3 @@ typr/
 ├── README.md
 └── CHANGELOG.md
 ```
-
-## 🤔 Why Typr?
-
-Most typewriter libraries require:
-
-- Manual JavaScript initialization
-- Complex configuration objects
-- Extra dependencies
-- Global variables
-
-Typr takes a different approach.
-
-It is:
-
-- Declarative (configured directly in HTML)
-- Dependency-free
-- Automatically initialized
-- Minimal and focused
-- CDN-friendly
-- Designed for simple integration into static sites and modern frontend projects
-
-If you want a clean typewriter effect without introducing framework overhead or complex setup — Typr is built for that use case.
